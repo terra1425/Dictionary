@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="urm-WJ-rXM">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Dictionary-->
+        <scene sceneID="jal-Al-PHG">
+            <objects>
+                <navigationController id="5mR-i6-s7i" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Dictionary" image="book" catalog="system" selectedImage="book.fill" id="QMc-Nj-gdZ"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="WXn-7P-CKK">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="GRB-hN-FWe" kind="relationship" relationship="rootViewController" id="Svm-eN-CuF"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uzP-XS-Qxf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-552" y="-220"/>
+        </scene>
+        <!--Dictionary-->
+        <scene sceneID="C60-Tv-IdL">
+            <objects>
+                <viewController id="GRB-hN-FWe" customClass="DictionaryViewController" customModule="Translator" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="OZj-rY-olF">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="njv-52-Kd4">
+                                <rect key="frame" x="0.0" y="88" width="414" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="rp7-41-e48">
+                                <rect key="frame" x="0.0" y="144" width="414" height="669"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="rp7-41-e48" firstAttribute="leading" secondItem="Mg2-ic-gRE" secondAttribute="leading" id="4qh-Sl-uai"/>
+                            <constraint firstItem="njv-52-Kd4" firstAttribute="trailing" secondItem="Mg2-ic-gRE" secondAttribute="trailing" id="6ve-K2-X7s"/>
+                            <constraint firstItem="rp7-41-e48" firstAttribute="bottom" secondItem="Mg2-ic-gRE" secondAttribute="bottom" id="Gea-jZ-bGp"/>
+                            <constraint firstItem="rp7-41-e48" firstAttribute="top" secondItem="njv-52-Kd4" secondAttribute="bottom" id="QkC-3F-rey"/>
+                            <constraint firstItem="njv-52-Kd4" firstAttribute="leading" secondItem="Mg2-ic-gRE" secondAttribute="leading" id="V55-HM-vQS"/>
+                            <constraint firstItem="rp7-41-e48" firstAttribute="trailing" secondItem="Mg2-ic-gRE" secondAttribute="trailing" id="vY1-tT-A6f"/>
+                            <constraint firstItem="njv-52-Kd4" firstAttribute="top" secondItem="Mg2-ic-gRE" secondAttribute="top" id="yQd-lY-fqC"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Mg2-ic-gRE"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Dictionary" image="book" catalog="system" selectedImage="book.fill" id="E2M-l1-HMZ"/>
+                    <navigationItem key="navigationItem" id="dVt-8S-OWi">
+                        <nil key="title"/>
+                        <view key="titleView" contentMode="scaleToFill" id="ycN-3F-TTC" customClass="LanguageSelectorView" customModule="Translator" customModuleProvider="target">
+                            <rect key="frame" x="132" y="0.0" width="150" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        </view>
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="trash" catalog="system" id="3xa-cj-MtM">
+                            <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <connections>
+                                <action selector="onDeleteAllAction:" destination="GRB-hN-FWe" id="NeG-5j-0Nc"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="langSelector" destination="ycN-3F-TTC" id="7ex-xJ-x76"/>
+                        <outlet property="searchBar" destination="njv-52-Kd4" id="w1N-g0-a6o"/>
+                        <outlet property="tableView" destination="rp7-41-e48" id="grA-7Q-0Ga"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zxw-Ww-F2G" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="476.81159420289856" y="-220.3125"/>
+        </scene>
+        <!--Translate-->
+        <scene sceneID="x1H-ak-lDT">
+            <objects>
+                <navigationController id="GTe-bU-rRA" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Translate" image="magnifyingglass.circle" catalog="system" selectedImage="magnifyingglass.circle.fill" id="gEg-Ru-NYk"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="RWG-BS-5T5">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.96848052740097046" green="0.92180414896792229" blue="0.51401090192066157" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="95m-lI-Iax" kind="relationship" relationship="rootViewController" id="dsG-C5-DvY"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YHa-DQ-6by" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-551" y="-905"/>
+        </scene>
+        <!--Translate-->
+        <scene sceneID="F1X-XO-S6v">
+            <objects>
+                <viewController id="95m-lI-Iax" customClass="TranslatorViewController" customModule="Translator" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Aax-9o-L0P">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Bt-yY-VYW">
+                                <rect key="frame" x="16" y="88" width="382" height="709"/>
+                                <subviews>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="GB7-B3-PCt">
+                                        <rect key="frame" x="0.0" y="0.0" width="382" height="150"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="150" id="cbf-mZ-76S"/>
+                                        </constraints>
+                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="v4i-hC-zip">
+                                        <rect key="frame" x="0.0" y="151" width="382" height="558"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ego-Ks-Qz6">
+                                        <rect key="frame" x="0.0" y="150" width="382" height="1"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="1" id="W7p-hd-uYd"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" red="0.96848052740000001" green="0.92180414899999996" blue="0.51401090189999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstItem="Ego-Ks-Qz6" firstAttribute="leading" secondItem="3Bt-yY-VYW" secondAttribute="leading" id="0TQ-BG-T8M"/>
+                                    <constraint firstAttribute="trailing" secondItem="Ego-Ks-Qz6" secondAttribute="trailing" id="HsU-TF-eer"/>
+                                    <constraint firstItem="v4i-hC-zip" firstAttribute="leading" secondItem="3Bt-yY-VYW" secondAttribute="leading" id="IHb-78-P45"/>
+                                    <constraint firstItem="GB7-B3-PCt" firstAttribute="leading" secondItem="3Bt-yY-VYW" secondAttribute="leading" id="PkW-4A-IqM"/>
+                                    <constraint firstItem="Ego-Ks-Qz6" firstAttribute="top" secondItem="GB7-B3-PCt" secondAttribute="bottom" id="UQC-ub-Jir"/>
+                                    <constraint firstAttribute="trailing" secondItem="v4i-hC-zip" secondAttribute="trailing" id="UkM-n9-88b"/>
+                                    <constraint firstItem="GB7-B3-PCt" firstAttribute="top" secondItem="3Bt-yY-VYW" secondAttribute="top" id="VDh-9R-Rmt"/>
+                                    <constraint firstAttribute="trailing" secondItem="GB7-B3-PCt" secondAttribute="trailing" id="a0u-VT-6RD"/>
+                                    <constraint firstAttribute="bottom" secondItem="v4i-hC-zip" secondAttribute="bottom" id="fva-rB-Mo2"/>
+                                    <constraint firstItem="v4i-hC-zip" firstAttribute="top" secondItem="Ego-Ks-Qz6" secondAttribute="bottom" id="g4o-d7-IpM"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.96848052740000001" green="0.92180414899999996" blue="0.51401090189999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="3Bt-yY-VYW" firstAttribute="leading" secondItem="ssd-xq-ihP" secondAttribute="leading" constant="16" id="AS3-hh-Nfg"/>
+                            <constraint firstItem="3Bt-yY-VYW" firstAttribute="top" secondItem="ssd-xq-ihP" secondAttribute="top" id="kJ5-k3-jhX"/>
+                            <constraint firstItem="ssd-xq-ihP" firstAttribute="bottom" secondItem="3Bt-yY-VYW" secondAttribute="bottom" constant="16" id="sIH-79-yI8"/>
+                            <constraint firstItem="ssd-xq-ihP" firstAttribute="trailing" secondItem="3Bt-yY-VYW" secondAttribute="trailing" constant="16" id="wuK-BB-1eC"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="ssd-xq-ihP"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Translate" image="magnifyingglass" catalog="system" selectedImage="magnifyingglass.circle.fill" id="qKb-O3-STg"/>
+                    <navigationItem key="navigationItem" id="uzA-pV-pCk">
+                        <nil key="title"/>
+                        <view key="titleView" contentMode="scaleToFill" id="uzx-97-86j" customClass="LanguageSelectorView" customModule="Translator" customModuleProvider="target">
+                            <rect key="frame" x="132" y="0.0" width="150" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        </view>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="bkgView" destination="3Bt-yY-VYW" id="cuV-fS-FPk"/>
+                        <outlet property="langSelector" destination="uzx-97-86j" id="Btw-EB-DBO"/>
+                        <outlet property="sourceText" destination="GB7-B3-PCt" id="u4x-YV-8JX"/>
+                        <outlet property="translationText" destination="v4i-hC-zip" id="lKl-A9-Jy6"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NQQ-Jt-3gY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="447.82608695652175" y="-905.35714285714278"/>
+        </scene>
+        <!--Dashboard View Controller-->
+        <scene sceneID="ADt-Yo-EUb">
+            <objects>
+                <tabBarController storyboardIdentifier="DashboardController" id="urm-WJ-rXM" customClass="DashboardViewController" customModule="Translator" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="lDv-95-8e1">
+                        <nil key="title"/>
+                    </navigationItem>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="yt4-xX-n6f">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </tabBar>
+                    <connections>
+                        <outlet property="tabBar" destination="yt4-xX-n6f" id="N75-Id-Bng"/>
+                        <segue destination="GTe-bU-rRA" kind="relationship" relationship="viewControllers" id="0ja-cf-bKX"/>
+                        <segue destination="5mR-i6-s7i" kind="relationship" relationship="viewControllers" id="bTM-lr-d6y"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZwW-rY-QAr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1458" y="-544"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="book" catalog="system" width="64" height="50"/>
+        <image name="book.fill" catalog="system" width="64" height="50"/>
+        <image name="magnifyingglass" catalog="system" width="64" height="56"/>
+        <image name="magnifyingglass.circle" catalog="system" width="64" height="60"/>
+        <image name="magnifyingglass.circle.fill" catalog="system" width="64" height="60"/>
+        <image name="trash" catalog="system" width="60" height="64"/>
+    </resources>
+</document>
