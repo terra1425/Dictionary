@@ -108,20 +108,22 @@ extension Repository {
     }
     
     func addIdiom(_ idiom: Idiom, with translations: [Idiom]) {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-        let managedContext = appDelegate.persistentContainer.viewContext
-        let coreIdiom = CoreIdiom(context: managedContext)
-        coreIdiom.text = idiom.text
-        coreIdiom.language = idiom.lang.description()
-        let coreTranslations = NSMutableSet()
-        translations.forEach {
-            let coreTranslation = CoreTranslation(context: managedContext)
-            coreTranslation.text = $0.text
-            coreTranslation.language = $0.lang.description()
-            coreTranslations.add(coreTranslation)
-        }
-        coreIdiom.translation = coreTranslations
+        if fetchTranslationsFor(idiom: idiom).isEmpty {
+            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+            let managedContext = appDelegate.persistentContainer.viewContext
+            let coreIdiom = CoreIdiom(context: managedContext)
+            coreIdiom.text = idiom.text
+            coreIdiom.language = idiom.lang.description()
+            let coreTranslations = NSMutableSet()
+            translations.forEach {
+                let coreTranslation = CoreTranslation(context: managedContext)
+                coreTranslation.text = $0.text
+                coreTranslation.language = $0.lang.description()
+                coreTranslations.add(coreTranslation)
+            }
+            coreIdiom.translation = coreTranslations
             
-        appDelegate.saveContext()
+            appDelegate.saveContext()
+        }
     }
 }

@@ -100,9 +100,7 @@ extension TranslatorViewController: TranslatorViewProtocol, TranslatorExternalPr
         langSelector.sourceText = model.langFrom
         langSelector.destinationText = model.langTo
         translationText.text = model.translation
-        if !model.text.isEmpty {
-            sourceText.text = model.text
-        }
+        sourceText.text = model.text
     }
 
     func setExternal(text: String?) {

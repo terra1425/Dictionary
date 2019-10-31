@@ -4,11 +4,6 @@
         <attribute name="language" optional="YES" attributeType="String"/>
         <attribute name="text" optional="YES" attributeType="String"/>
         <relationship name="translation" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Translations" inverseName="idiom" inverseEntity="Translations"/>
-        <uniquenessConstraints>
-            <uniquenessConstraint>
-                <constraint value="text"/>
-            </uniquenessConstraint>
-        </uniquenessConstraints>
     </entity>
     <entity name="Translations" representedClassName="CoreTranslation" syncable="YES" codeGenerationType="class">
         <attribute name="language" optional="YES" attributeType="String"/>

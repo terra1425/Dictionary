@@ -68,8 +68,8 @@ class Translator {
                             $0.idiom = $0.idiom.copy {
                                 $0.text = text
                             }
-                            $0.translations = nil
                         }
+                        $0.translations = nil
                     }
                     
                 case .addTranslation(let idiom):
