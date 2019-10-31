@@ -20,7 +20,9 @@ class DictionaryPresenter: DictionaryPresenterProtocol {
     }
     
     private func convert(state: Dict.State) -> Dict.ViewModel {
-        let items = state.records.map { ($0.key.text, $0.value.first?.text ?? "") }
+        let items = state.records.map { ($0.key.text, $0.value.first?.text ?? "") }.sorted { (v1, v2) -> Bool in
+            return v1.0 < v2.0
+        }
         return Dict.ViewModel(langFrom: state.langFrom.description(), langTo: state.langTo.description(), items: items)
     }
 }
