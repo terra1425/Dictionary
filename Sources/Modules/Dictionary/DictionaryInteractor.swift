@@ -66,7 +66,7 @@ class DictionaryInteractor: DictionaryInteractorProtocol {
     
     private func populateEmptyItems(from repository: RepositoryProtocol) {
         var items = [Idiom: [Idiom]]()
-        repository.getAllIdiomsFor(language: state.langFrom).forEach {
+        repository.getAllIdiomsFor(language: state.langFrom, to: state.langTo).forEach {
             items[$0] = [Idiom(text: "", lang: state.langTo)]
         }
         state = reducer.reduce(state: state, by: .populate(items)) ?? state

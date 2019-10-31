@@ -18,6 +18,11 @@ class TranslatorInteractor: TranslatorInteractorProtocol {
     private let repo: RepositoryProtocol = Repository()
     
     func translate(text: String) {
+        guard !text.isEmpty else {
+            state = reducer.reduce(state: state, by: Translator.Wish.changeText(text)) ?? state
+            self.presenter?.present(state: self.state)
+            return
+        }
         state = reducer.reduce(state: state, by: Translator.Wish.changeText(text)) ?? state
         presenter?.present(state: state)
         repo.searchTranslationFor(idiom: state.idiom, to: state.langTo) { [weak self] translations in

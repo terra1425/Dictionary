@@ -14,12 +14,12 @@ class Repository: RepositoryProtocol {
     
     private let translator: TranslatorProtocol = YandexTranslator()
     
-    func getAllIdiomsFor(language: Idiom.Language) -> [Idiom] {
-        return fetchAllIdiomsFor(lang: language)
+    func getAllIdiomsFor(language: Idiom.Language, to targetLanguage: Idiom.Language) -> [Idiom] {
+        return fetchAllIdiomsFor(lang: language, to: targetLanguage)
     }
     
     func searchTranslationFor(idiom: Idiom, to lang: Idiom.Language, handler: @escaping ([Idiom]) -> Void) {
-        let cached = fetchTranslationsFor(idiom: idiom)
+        let cached = fetchTranslationsTo(language: lang, of: idiom)
         if cached.isEmpty {
             translator.searchTranslationFor(idiom: idiom, to: lang) { [weak self] translations in
                 if !translations.isEmpty {
@@ -64,14 +64,14 @@ extension Repository {
         return "Idioms"
     }
     
-    func fetchAllIdiomsFor(lang: Idiom.Language) -> [Idiom] {
+    func fetchAllIdiomsFor(lang: Idiom.Language, to targetLang: Idiom.Language) -> [Idiom] {
         var result = [Idiom]()
 
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
             let managedContext = appDelegate.persistentContainer.viewContext
             
             let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: idiomsEntityName)
-            fetchRequest.predicate = NSPredicate(format: "language == %@", lang.description())
+            fetchRequest.predicate = NSPredicate(format: "language == %@ AND SUBQUERY(translation,$t, $t.language == %@).@count != 0", lang.description(), targetLang.description())
             
             do {
                 result =  try (managedContext.fetch(fetchRequest) as! [CoreIdiom]).compactMap { Idiom.from($0) }
@@ -82,6 +82,10 @@ extension Repository {
         }
         
         return result
+    }
+
+    func fetchTranslationsTo(language: Idiom.Language, of idiom: Idiom) -> [Idiom] {
+        return fetchTranslationsFor(idiom: idiom).filter { $0.lang == language }
     }
 
     func fetchTranslationsFor(idiom: Idiom) -> [Idiom] {
@@ -97,6 +101,7 @@ extension Repository {
                 if let record = data.first {
                     if let coreTranslations = record.translation as? Set<CoreTranslation> {
                         result = coreTranslations.compactMap { Idiom.from($0) }
+                        print("Found cached: \(result)")
                     }
                 }
             } catch let error as NSError {
@@ -108,22 +113,23 @@ extension Repository {
     }
     
     func addIdiom(_ idiom: Idiom, with translations: [Idiom]) {
-        if fetchTranslationsFor(idiom: idiom).isEmpty {
-            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-            let managedContext = appDelegate.persistentContainer.viewContext
-            let coreIdiom = CoreIdiom(context: managedContext)
-            coreIdiom.text = idiom.text
-            coreIdiom.language = idiom.lang.description()
-            let coreTranslations = NSMutableSet()
-            translations.forEach {
+        let cachedTranslations = fetchTranslationsFor(idiom: idiom)
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let coreIdiom = CoreIdiom(context: managedContext)
+        coreIdiom.text = idiom.text
+        coreIdiom.language = idiom.lang.description()
+        let coreTranslations = NSMutableSet()
+        translations.forEach {
+            if !cachedTranslations.contains($0) {
                 let coreTranslation = CoreTranslation(context: managedContext)
                 coreTranslation.text = $0.text
                 coreTranslation.language = $0.lang.description()
                 coreTranslations.add(coreTranslation)
             }
-            coreIdiom.translation = coreTranslations
-            
-            appDelegate.saveContext()
         }
+        coreIdiom.translation = coreTranslations
+        
+        appDelegate.saveContext()
     }
 }

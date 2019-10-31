@@ -56,8 +56,9 @@ class YandexTranslator: TranslatorProtocol {
                         let json = try JSONSerialization.jsonObject(with: data!, options: .allowFragments)
                         if let values = json as? [String: Any],
                             let translatedText = values["text"] as? [String],
-                            let translatedLang = values["lang"] as? String {
-                            
+                            let translatedLang = values["lang"] as? String,
+                            let code = values["code"] as? Int {
+                            print("Received code: \(code), translations: \(translatedText), language: \(translatedLang)")
                             handler(translatedText, translatedLang)
                             return
                         }

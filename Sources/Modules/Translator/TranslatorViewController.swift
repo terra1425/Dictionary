@@ -43,12 +43,20 @@ class TranslatorViewController: BaseUIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        clearSource()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        clearSource()
+    }
+    
+    // MARK:  Helpers
+    
+    private func clearSource() {
         sourceText.text = ""
         translationText.text = ""
         textViewDidEndEditing(sourceText)
     }
-    
-    // MARK:  Helpers
     
     private func setupLanguageSelector() {
         sourceLangChangeDelegate.changeLanguageHandler = { [weak self] langFullDescription in
@@ -101,6 +109,9 @@ extension TranslatorViewController: TranslatorViewProtocol, TranslatorExternalPr
         langSelector.destinationText = model.langTo
         translationText.text = model.translation
         sourceText.text = model.text
+        if (model.text.isEmpty) {
+            setPlaceholderTo(textView: sourceText)
+        }
     }
 
     func setExternal(text: String?) {
@@ -120,16 +131,20 @@ extension TranslatorViewController: UITextViewDelegate {
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.textColor == UIColor.lightGray {
+        if textView.textColor == UIColor.systemGray3 {
             textView.text = nil
-            textView.textColor = UIColor.black
+            textView.textColor = UIColor.label
         }
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        if textView.text.isEmpty {
+        setPlaceholderTo(textView: textView)
+    }
+    
+    private func setPlaceholderTo(textView: UITextView) {
+        if textView.text.isEmpty && !textView.isFirstResponder {
             textView.text = "Enter text"
-            textView.textColor = UIColor.lightGray
+            textView.textColor = UIColor.systemGray3
         }
     }
 }

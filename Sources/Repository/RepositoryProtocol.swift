@@ -13,7 +13,7 @@ protocol TranslatorProtocol {
 }
 
 protocol RepositoryCacheProtocol {
-    func getAllIdiomsFor(language: Idiom.Language) -> [Idiom]
+    func getAllIdiomsFor(language: Idiom.Language, to targetLanguage: Idiom.Language) -> [Idiom]
     func removeAllIdiomsFor(language: Idiom.Language)
 }
 
