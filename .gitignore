@@ -17,3 +17,5 @@ xcuserdata/
 *.moved-aside
 Carthage/
 Cartfile.resolved
+Translator.xcodeproj/project.xcworkspace/xcuserdata/alex.xcuserdatad/UserInterfaceState.xcuserstate
+Translator.xcodeproj/xcuserdata/alex.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
