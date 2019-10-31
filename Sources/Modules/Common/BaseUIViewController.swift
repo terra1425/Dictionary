@@ -68,9 +68,7 @@ class BaseUIViewController: UIViewController {
     
     @objc func onExternalLanguageChange(notification: NSNotification) {
         if !isSyncing,  let data = notification.userInfo as NSDictionary? {
-            if let fromLang = data["from"] as? String?, let toLang = data["to"] as? String? {
-                syncHandler?(fromLang, toLang)
-            }
+            syncHandler?(data["from"] as? String, data["to"] as? String)
         }
     }
 }

@@ -14,6 +14,11 @@ class DashboardViewController: UITabBarController {
         super.viewDidLoad()
         UITabBar.appearance().barTintColor = UIColor(red: 241/255, green: 242/255, blue: 244/255, alpha: 1.0)
         UITabBar.appearance().tintColor = UIColor.black
+        viewControllers?.forEach {
+            if let nc = $0 as? UINavigationController {
+                nc.topViewController?.view
+            }
+        }
     }
 }
 
